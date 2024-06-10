@@ -1,0 +1,59 @@
+<div class="filters">
+  <mat-form-field>
+    <mat-label>Typ tabeli</mat-label>
+    <mat-select
+      #type
+      [value]="types[0].value"
+      (selectionChange)="onTableTypeChange($event)"
+    >
+      <mat-option *ngFor="let type of types" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Data</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [formControl]="date"
+      (dateChange)="getTable()"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+</div>
+
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="currency">
+    <th mat-header-cell *matHeaderCellDef>Waluta</th>
+    <td mat-cell *matCellDef="let currency">{{ currency.currency }}</td>
+  </ng-container>
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef>Kod</th>
+    <td mat-cell *matCellDef="let currency">{{ currency.code }}</td>
+  </ng-container>
+  <ng-container matColumnDef="mid">
+    <th mat-header-cell *matHeaderCellDef>Średni kurs.</th>
+    <td mat-cell *matCellDef="let currency">{{ currency.mid }}</td>
+  </ng-container>
+  <ng-container matColumnDef="bid">
+    <th mat-header-cell *matHeaderCellDef>Kupno</th>
+    <td mat-cell *matCellDef="let currency">{{ currency.bid }}</td>
+  </ng-container>
+  <ng-container matColumnDef="ask">
+    <th mat-header-cell *matHeaderCellDef>Sprzedaż</th>
+    <td mat-cell *matCellDef="let currency">{{ currency.ask }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row not-found-row" *matNoDataRow>
+    <td class="mat-cell" colspan="3" style="text-align: center; padding: 20px;">Brak danych do wyświetlenia</td>
+  </tr>
+</table>

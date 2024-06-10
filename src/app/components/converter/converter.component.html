@@ -1,0 +1,73 @@
+<div class="converter">
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      min="0"
+      type="number"
+      placeholder=""
+      value=""
+      [formControl]="amountA"
+      (change)="calcB()"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Przelicz z:</mat-label>
+    <input
+      type="text"
+      placeholder=""
+      aria-label="Przelicz z:"
+      matInput
+      [formControl]="codeACtrl"
+      [matAutocomplete]="autoA"
+    />
+    <mat-autocomplete
+      autoActiveFirstOption
+      #autoA="matAutocomplete"
+      (optionSelected)="onCurrencyASelect($event)"
+    >
+      <mat-option
+        *ngFor="let optionA of filteredOptionsA | async"
+        [value]="optionA"
+      >
+        {{ optionA }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      min="0"
+      type="number"
+      placeholder=""
+      value=""
+      [formControl]="amountB"
+      (change)="calcA()"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Przelicz na:</mat-label>
+    <input
+      type="text"
+      placeholder=""
+      aria-label="Przelicz na:"
+      matInput
+      [formControl]="codeBCtrl"
+      [matAutocomplete]="autoB"
+    />
+    <mat-autocomplete
+      autoActiveFirstOption
+      #autoB="matAutocomplete"
+      (optionSelected)="onCurrencyBSelect($event)"
+    >
+      <mat-option
+        *ngFor="let option of filteredOptionsB | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
